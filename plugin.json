@@ -5,8 +5,8 @@
     "version": "1.0.0",
     "description": "Edit the server.properties of minecraft servers through a friendly form",
     "category": "plugin",
-    "url": null,
-    "update_url": null,
+    "url": "https://github.com/CedricKassen/Pelican-Minecraft-Server-Properties",
+    "update_url": "https://hub.pelican.dev/plugins/minecraft-server-properties/update.json",
     "namespace": "CedricKassen\\MinecraftServerProperties",
     "class": "MinecraftServerPropertiesPlugin",
     "panels": [
