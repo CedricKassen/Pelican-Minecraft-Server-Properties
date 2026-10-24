@@ -1,0 +1,18 @@
+{
+    "id": "minecraft-server-properties",
+    "name": "Minecraft Server Properties",
+    "author": "Cedric Kassen",
+    "version": "1.0.0",
+    "description": "Edit the server.properties of minecraft servers through a friendly form",
+    "category": "plugin",
+    "url": null,
+    "update_url": null,
+    "namespace": "CedricKassen\\MinecraftServerProperties",
+    "class": "MinecraftServerPropertiesPlugin",
+    "panels": [
+        "server"
+    ],
+    "panel_version": null,
+    "api_version": 1,
+    "composer_packages": null
+}
