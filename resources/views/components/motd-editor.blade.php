@@ -729,32 +729,33 @@
     </script>
 
     <style>
-        .mcm { --mcm-font: Minecraft, Minecraftia, Monocraft, ui-monospace, SFMono-Regular, Menlo, Consolas, 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Noto Sans Symbols', 'DejaVu Sans', monospace; --mcm-border: rgba(127, 127, 127, 0.3); --mcm-hover: rgba(127, 127, 127, 0.15); --mcm-active: rgba(127, 127, 127, 0.28); --mcm-surface: #fff; --mcm-bar: rgb(244, 244, 245); border: 1px solid var(--mcm-border); border-radius: 0.5rem; overflow: visible; }
-        :is(.dark) .mcm { --mcm-surface: rgb(24, 24, 27); --mcm-bar: rgb(39, 39, 42); }
-        .mcm-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; padding: 0.375rem; background: var(--mcm-bar); border-bottom: 1px solid var(--mcm-border); border-radius: 0.5rem 0.5rem 0 0; }
+        .mcm { --mcm-font: Minecraft, Minecraftia, Monocraft, ui-monospace, SFMono-Regular, Menlo, Consolas, 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'Noto Sans Symbols', 'DejaVu Sans', monospace; --mcm-surface: #fff; --mcm-popover: #fff; --mcm-ring: color-mix(in oklab, var(--gray-950, #09090b) 10%, transparent); --mcm-divider: color-mix(in oklab, var(--gray-950, #09090b) 10%, transparent); --mcm-hover: var(--gray-50, #fafafa); --mcm-button: var(--gray-700, #3f3f46); --mcm-on-background: var(--gray-50, #fafafa); --mcm-on: var(--primary-600, #2563eb); --mcm-focus: var(--primary-600, #2563eb); --mcm-hint: var(--warning-600, #d97706); border-radius: 0.5rem; background: var(--mcm-surface); box-shadow: 0 0 0 1px var(--mcm-ring); }
+        :is(.dark) .mcm { --mcm-surface: color-mix(in oklab, #fff 5%, transparent); --mcm-popover: var(--gray-900, #18181b); --mcm-ring: color-mix(in oklab, #fff 20%, transparent); --mcm-divider: color-mix(in oklab, #fff 10%, transparent); --mcm-hover: color-mix(in oklab, #fff 5%, transparent); --mcm-button: var(--gray-200, #e4e4e7); --mcm-on-background: color-mix(in oklab, #fff 5%, transparent); --mcm-on: var(--primary-400, #60a5fa); --mcm-focus: var(--primary-500, #3b82f6); --mcm-hint: var(--warning-400, #fbbf24); }
+        .mcm:focus-within { box-shadow: 0 0 0 2px var(--mcm-focus); }
+        .mcm-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; padding: 0.375rem; border-bottom: 1px solid var(--mcm-divider); }
         .mcm-group { display: flex; align-items: center; gap: 0.125rem; }
-        .mcm-group + .mcm-group { border-left: 1px solid var(--mcm-border); padding-left: 0.25rem; }
-        .mcm-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.125rem; min-width: 2rem; height: 2rem; padding: 0 0.375rem; border-radius: 0.375rem; color: inherit; }
+        .mcm-group + .mcm-group { border-left: 1px solid var(--mcm-divider); padding-left: 0.25rem; }
+        .mcm-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.125rem; min-width: 2rem; height: 2rem; padding: 0 0.375rem; border-radius: 0.5rem; color: var(--mcm-button); transition: background-color 75ms, color 75ms; }
         .mcm-btn:hover:not(:disabled) { background: var(--mcm-hover); }
         .mcm-btn:disabled { opacity: 0.35; cursor: default; }
-        .mcm-btn.mcm-on { background: var(--mcm-active); }
+        .mcm-btn.mcm-on { background: var(--mcm-on-background); color: var(--mcm-on); }
         .mcm .mcm-btn svg { width: 1.125rem; height: 1.125rem; }
         .mcm .mcm-btn svg.mcm-caret { width: 0.75rem; height: 0.75rem; opacity: 0.6; }
         .mcm-color-bar { position: absolute; left: 0.375rem; right: 1.125rem; bottom: 0.25rem; height: 0.1875rem; border-radius: 1px; box-shadow: 0 0 0 1px rgba(127, 127, 127, 0.4); }
         .mcm-dropdown { position: relative; }
-        .mcm-popover { position: absolute; top: calc(100% + 0.25rem); left: 0; z-index: 30; padding: 0.5rem; border-radius: 0.5rem; background: var(--mcm-surface); border: 1px solid var(--mcm-border); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25); }
-        .mcm-default { display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.25rem 0.375rem; margin-bottom: 0.375rem; border-radius: 0.25rem; font-size: 0.8125rem; white-space: nowrap; }
+        .mcm-popover { position: absolute; top: calc(100% + 0.5rem); left: 0; z-index: 30; padding: 0.5rem; border-radius: 0.5rem; background: var(--mcm-popover); box-shadow: 0 0 0 1px var(--mcm-divider), 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
+        .mcm-default { display: flex; align-items: center; gap: 0.5rem; width: 100%; padding: 0.25rem 0.375rem; margin-bottom: 0.375rem; border-radius: 0.375rem; color: var(--mcm-button); font-size: 0.875rem; white-space: nowrap; }
         .mcm-default:hover { background: var(--mcm-hover); }
         .mcm-swatches { display: grid; grid-template-columns: repeat(8, 1.5rem); gap: 0.25rem; }
         .mcm-swatch { width: 1.5rem; height: 1.5rem; border-radius: 0.25rem; border: 1px solid rgba(127, 127, 127, 0.5); }
-        .mcm-swatch:hover, .mcm-swatch.mcm-on { outline: 2px solid rgb(59, 130, 246); outline-offset: 1px; }
+        .mcm-swatch:hover, .mcm-swatch.mcm-on { outline: 2px solid var(--mcm-focus); outline-offset: 1px; }
         .mcm-symbols-panel { max-height: 20rem; overflow-y: auto; }
-        .mcm-symbols-title { margin: 0.375rem 0 0.25rem; font-size: 0.75rem; font-weight: 600; opacity: 0.7; }
+        .mcm-symbols-title { margin: 0.375rem 0 0.25rem; color: var(--mcm-button); font-size: 0.75rem; font-weight: 600; opacity: 0.7; }
         .mcm-symbols-title:first-child { margin-top: 0; }
         .mcm-symbols { display: grid; grid-template-columns: repeat(10, 1.875rem); gap: 0.125rem; }
         .mcm-symbol { width: 1.875rem; height: 1.875rem; border-radius: 0.25rem; background: #2b2119; color: #fff; font-family: var(--mcm-font); font-variant-emoji: text; font-size: 1rem; line-height: 1; }
-        .mcm-symbol:hover { background: #4a3a2c; outline: 2px solid rgb(59, 130, 246); }
-        .mcm-hint { margin-left: auto; padding: 0 0.5rem; font-size: 0.8125rem; color: rgb(217, 119, 6); }
+        .mcm-symbol:hover { background: #4a3a2c; outline: 2px solid var(--mcm-focus); }
+        .mcm-hint { margin-left: auto; padding: 0 0.5rem; font-size: 0.875rem; color: var(--mcm-hint); }
         .mcm-screen { padding: 0.75rem; background-color: #2b2119; background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.18) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.18) 75%), linear-gradient(45deg, rgba(0, 0, 0, 0.18) 25%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.18) 75%); background-size: 8px 8px; background-position: 0 0, 4px 4px; overflow-x: auto; }
         .mcm-screen:last-child { border-radius: 0 0 0.5rem 0.5rem; }
         .mcm-entry { display: flex; gap: 0.5rem; max-width: 42rem; padding: 0.25rem; border: 2px solid #808080; background: rgba(0, 0, 0, 0.55); font-family: var(--mcm-font); font-variant-emoji: text; font-size: 1rem; line-height: 1.375rem; }
@@ -773,8 +774,8 @@
         .mcm-editor ::selection { background: rgba(80, 120, 255, 0.55); }
         .mcm-obfuscated { animation: mcm-obfuscated 0.3s steps(2) infinite; text-shadow: 0 0 4px currentColor; }
         @keyframes mcm-obfuscated { 0% { opacity: 1; filter: blur(0.5px); } 100% { opacity: 0.55; filter: blur(2px); } }
-        .mcm-source { display: block; width: 100%; padding: 0.5rem 0.75rem; border: 0; border-bottom: 1px solid var(--mcm-border); background: var(--mcm-surface); color: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; resize: vertical; }
-        .mcm-source:focus { outline: none; box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.5); }
+        .mcm-source { display: block; width: 100%; padding: 0.5rem 0.75rem; border: 0; border-bottom: 1px solid var(--mcm-divider); background: transparent; color: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; resize: vertical; }
+        .mcm-source:focus { outline: none; box-shadow: none; }
     </style>
 
     <div
