@@ -228,9 +228,22 @@ return [
     ],
 
     'motd' => [
-        'preview' => 'Vorschau',
-        'insert_format' => 'Farbe oder Format einfügen',
-        'format' => 'Farbe / Format',
+        'toolbar' => [
+            'label' => 'Formatierung',
+            'undo' => 'Rückgängig',
+            'redo' => 'Wiederholen',
+            'color' => 'Textfarbe',
+            'default_color' => 'Standard (Grau)',
+            'symbols' => 'Sonderzeichen einfügen',
+            'source' => 'Quelltext mit §-Codes bearbeiten',
+        ],
+        'symbols' => [
+            'arrows' => 'Pfeile',
+            'corner_arrows' => 'Eck-Pfeile',
+            'lines' => 'Linien & Rahmen',
+            'symbols' => 'Symbole',
+        ],
+        'line_limit' => 'Die Serverliste zeigt maximal zwei Zeilen.',
         'codes' => [
             '0' => 'Schwarz',
             '1' => 'Dunkelblau',

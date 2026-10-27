@@ -2,7 +2,7 @@
     "id": "minecraft-server-properties",
     "name": "Minecraft Server Properties",
     "author": "Cedric Kassen",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Edit the server.properties of minecraft servers through a friendly form",
     "category": "plugin",
     "url": "https://github.com/CedricKassen/Pelican-Minecraft-Server-Properties",

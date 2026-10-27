@@ -13,7 +13,7 @@ Subusers need the `file.read-content` permission to see the page and `file.updat
 
 - **Grouped Settings**: General, Players & Access, World, Performance, Resource Pack and Advanced, with labels, help texts and units instead of raw keys
 - **Version Aware**: Only properties that exist in the server's file are shown, so it fits every Minecraft version
-- **MOTD Preview**: Live preview of the message of the day, including color and format codes, with a picker to insert them
+- **MOTD Editor**: Edit the message of the day right in a server list look-alike, with a toolbar for colors, formats and symbols, undo/redo, a two line limit like in game and an optional view of the raw `§` codes
 - **Safe Saving**: Only changed properties are written, the file is read again right before saving and comments, order and unknown properties are kept
 - **First Start Hint**: Shows a hint if Minecraft hasn't written its settings into the file yet (e.g. a brand new server)
 - **Panel Managed Properties**: Properties the egg sets on every start (like `server-port`) are shown read-only

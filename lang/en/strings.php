@@ -228,9 +228,22 @@ return [
     ],
 
     'motd' => [
-        'preview' => 'Preview',
-        'insert_format' => 'Insert color or format',
-        'format' => 'Color / Format',
+        'toolbar' => [
+            'label' => 'Formatting',
+            'undo' => 'Undo',
+            'redo' => 'Redo',
+            'color' => 'Text color',
+            'default_color' => 'Default (gray)',
+            'symbols' => 'Insert symbol',
+            'source' => 'Edit source with § codes',
+        ],
+        'symbols' => [
+            'arrows' => 'Arrows',
+            'corner_arrows' => 'Corner arrows',
+            'lines' => 'Lines & frames',
+            'symbols' => 'Symbols',
+        ],
+        'line_limit' => 'The server list shows two lines at most.',
         'codes' => [
             '0' => 'Black',
             '1' => 'Dark Blue',

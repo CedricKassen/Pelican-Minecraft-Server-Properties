@@ -10,7 +10,7 @@ use App\Models\Server;
 use App\Repositories\Daemon\DaemonServerRepository;
 use CedricKassen\MinecraftServerProperties\Enums\PropertySection;
 use CedricKassen\MinecraftServerProperties\Enums\PropertyType;
-use CedricKassen\MinecraftServerProperties\Properties\MotdRenderer;
+use CedricKassen\MinecraftServerProperties\Forms\Components\MotdEditor;
 use CedricKassen\MinecraftServerProperties\Properties\PropertyDefinition;
 use CedricKassen\MinecraftServerProperties\Properties\PropertyRegistry;
 use CedricKassen\MinecraftServerProperties\Services\ServerPropertiesService;
@@ -18,19 +18,14 @@ use Exception;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Callout;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
-use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\Width;
-use Illuminate\Support\HtmlString;
 
 class ServerPropertiesPage extends ServerFormPage
 {
@@ -139,12 +134,6 @@ class ServerPropertiesPage extends ServerFormPage
                 }
 
                 $fields[] = $this->makeField($definition, $managedKeys, $lockedKeys);
-
-                if ($definition->type === PropertyType::Motd) {
-                    $fields[] = TextEntry::make('motd_preview')
-                        ->label(trans('minecraft-server-properties::strings.motd.preview'))
-                        ->state(fn (Get $get) => new HtmlString(MotdRenderer::toHtml($get($definition->getFieldName()))));
-                }
             }
 
             if (empty($fields)) {
@@ -219,10 +208,10 @@ class ServerPropertiesPage extends ServerFormPage
                 ->native(false),
             PropertyType::Text => TextInput::make($name)
                 ->regex($definition->regex),
-            PropertyType::Motd => Textarea::make($name)
-                ->rows(2)
-                ->live(debounce: 500)
-                ->hintAction($this->makeMotdFormatAction($name)->visible(fn () => $this->canUpdate() && !$isReadOnly)),
+            PropertyType::Motd => MotdEditor::make($name)
+                ->serverName(fn () => $this->getRecord()->name)
+                ->maxPlayers(fn (Get $get) => $get('max_players'))
+                ->columnSpanFull(),
         };
 
         $field
@@ -244,35 +233,6 @@ class ServerPropertiesPage extends ServerFormPage
         }
 
         return $field;
-    }
-
-    protected function makeMotdFormatAction(string $fieldName): Action
-    {
-        $options = [];
-
-        foreach (MotdRenderer::COLORS as $code => $color) {
-            $options[$code] = '<span style="color: ' . $color . '; text-shadow: 0 0 1px #000;">&#9632;</span> ' . e(trans('minecraft-server-properties::strings.motd.codes.' . $code));
-        }
-
-        foreach (array_keys(MotdRenderer::FORMATS) as $code) {
-            $options[$code] = e(trans('minecraft-server-properties::strings.motd.codes.' . $code));
-        }
-
-        $options['r'] = e(trans('minecraft-server-properties::strings.motd.codes.r'));
-
-        return Action::make('insert_motd_format')
-            ->label(trans('minecraft-server-properties::strings.motd.insert_format'))
-            ->icon('tabler-palette')
-            ->modalWidth(Width::Small)
-            ->schema([
-                Select::make('code')
-                    ->label(trans('minecraft-server-properties::strings.motd.format'))
-                    ->options($options)
-                    ->allowHtml()
-                    ->native(false)
-                    ->required(),
-            ])
-            ->action(fn (array $data, Get $get, Set $set) => $set($fieldName, ($get($fieldName) ?? '') . '§' . $data['code']));
     }
 
     /** @return array<Action> */
